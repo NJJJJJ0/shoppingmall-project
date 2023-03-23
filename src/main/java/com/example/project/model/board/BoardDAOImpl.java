@@ -49,7 +49,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void update(BoardDTO dto) {
 		// TODO Auto-generated method stub
 		sqlSession.update("board.update",dto);
-		System.out.println(dto);
+
 	}
 
 	@Override

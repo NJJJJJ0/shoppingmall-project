@@ -40,24 +40,21 @@ public class BoardController {
 	}
 
 	@RequestMapping("insert.do")
-	public String insert(BoardDTO dto, HttpSession session, HttpServletRequest request) {
+	public String insert(BoardDTO dto, HttpSession session) {
 		String writer = (String) session.getAttribute("userid");
-		String filename = "-";
-		if (!dto.getFile1().isEmpty()) {
-			filename = dto.getFile1().getOriginalFilename();
-			try {
-				ServletContext application = request.getSession().getServletContext();
-				String path = application.getRealPath("/WEB-INF/views/images/");
-				new File(path).mkdir();
-				dto.getFile1().transferTo(new File(path + filename));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		/*
+		 * String filename = "-";
+		 * 
+		 * if (!dto.getFile1().isEmpty()) { filename =
+		 * dto.getFile1().getOriginalFilename(); try { ServletContext application =
+		 * request.getSession().getServletContext(); String path =
+		 * application.getRealPath("/WEB-INF/views/images/"); new File(path).mkdir();
+		 * dto.getFile1().transferTo(new File(path + filename)); } catch (Exception e) {
+		 * e.printStackTrace(); }
+		 */
+		
 		dto.setWriter(writer);
 		boardService.insert(dto);
-		dto.setFilename(filename);
-		boardDao.insert(dto);
 		return "redirect:/board/list.do";
 
 	}
@@ -103,16 +100,17 @@ public class BoardController {
 	@RequestMapping("update.do")
 	// public String update(@ModelAttribute BoardDTO dto) {
 	public String update(@ModelAttribute BoardDTO dto) {
+		
 		/*
 		 * String filename = "-"; if (dto.getFile1()!=null && !dto.getFile1().isEmpty())
 		 * { filename = dto.getFile1().getOriginalFilename(); try { ServletContext
-		 * application = request.getSession().getServletContext(); String path =
-		 * application.getRealPath("/WEB-INF/views/images/"); new File(path).mkdir();
+		 * application = request.getSession().getServletContext(); String path
+		 * =application.getRealPath("/WEB-INF/views/images/"); new File(path).mkdir();
 		 * dto.getFile1().transferTo(new File(path + filename)); } catch (Exception e) {
-		 * e.printStackTrace(); } dto.setFilename(filename); } else { BoardDTO dto2 =
-		 * boardDao.detail(dto.getIdx()); dto.setFilename(dto2.getFilename()); }
+		 * e.printStackTrace(); } dto.setFilename(filename); } else { BoardDTO dto2
+		 * =boardDao.detail(dto.getIdx()); dto.setFilename(dto2.getFilename()); }
 		 */
-		 boardDao.update(dto);
+		 boardService.update(dto);
 		return "redirect:/board/list.do";
 	}
 	@RequestMapping("like/{idx}")

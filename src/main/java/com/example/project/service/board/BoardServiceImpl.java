@@ -43,6 +43,11 @@ public class BoardServiceImpl implements BoardService {
 	public void update(BoardDTO dto) {
 		// TODO Auto-generated method stub
 		boardDao.update(dto);
+		String[] files=dto.getFiles();
+		if(files==null)return;
+		for(String name: files) {
+			boardDao.update_attach(name, dto.getIdx());
+		}
 	}
 
 	@Override

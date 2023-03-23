@@ -11,6 +11,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+table{
+ width :"400px";
+ 
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -57,7 +61,7 @@ function mycount(opt){
 </c:when>
 <c:otherwise>
 <form name="form1" method="post" action="/shop/cart/update.do">
-<table border="1" width ="400px">
+<table border="1">
 <tr>
 <th>상품명</th>
 <th>단가</th>
